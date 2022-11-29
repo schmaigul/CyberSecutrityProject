@@ -1,0 +1,50 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Postal Service</title>
+    </head>
+
+    <body>
+        <h1>Postal Service</h1>
+
+        <form action = 'logout/' method = 'POST'>
+            {% csrf_token %}
+            <input type = 'submit' value = 'Logout'>
+        </form>
+
+        <h2>Your sent orders</h2>
+        <ul>
+            {% for order in orders %}
+            <li>{{order.name}}</li>
+                <ul>
+                    <li>Price: {{order.price}}</li>
+                    <li>Date Created: {{order.date_created}}</li>
+                    <li>Status: {{order.status}}</li>
+                </ul>
+                {% if order.status == "Pending" %}
+                    <form action = 'setdelivered/{{order.id}}' method = 'POST'>
+                        {% csrf_token %}
+                        <input type = "submit" value = "Set delivered"/>
+                    </form>
+                {% else %}
+                    <form action = 'deleteorder/' method = 'POST'>
+                        {% csrf_token %}
+                        <button name = "id" value = {{order.id}} type = "submit">Delete order</button>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        
+        <h2>Send an order</h2>
+        <form action = 'sendorder/' method = 'POST'>
+            {% csrf_token %}
+            <label for = "order_name">Item name</label>
+            <input type = 'text' name = 'order_name' id = "order_name"/><br><br>
+            <label for = "price">Price</label>
+            <input type = 'text' name = 'price' id = "price"/><br><br>
+            <label for = "customer">Recipient</label>
+            <input type = 'text' name = 'customer' id = "customer"/><br><br>
+            <input type = "submit" value = 'Send Order'/>
+        </form>
+    </body>
+</html>
