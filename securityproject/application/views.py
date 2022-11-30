@@ -7,7 +7,7 @@ from django.utils import timezone
 from .models import Order
 import sqlite3
 
-
+#Fix to vulnerability 5
 '''import logging
 logger = logging.getLogger(__name__)'''
 
@@ -20,10 +20,12 @@ def sendorderView(request):
         status = 'Pending'
         customer = User.objects.get(username = request.POST.get('customer'))
         order = Order.objects.create(name = name, price = price, date_created = date, status = status, customer = customer)
+        #Fix to vulnearability 5
         #logger.info(f"A new order was made with the id {order.id}")
 
     return redirect('/')
 
+#Fix to vulnerability 4
 '''@login_required
 def sendorderView(request):
     if request.method == 'POST':
@@ -49,11 +51,14 @@ def setdeliveredView(request):
         cursor.execute("UPDATE application_order SET status = 'Delivered' WHERE name = '%s';" % (name,))
         connection.commit()
     except:
+        #Fix to vulnerability 5
         #logger.warning('Platform is running at risk')
         pass
      
     return redirect('/')
 
+
+# Fix to vulnerability 1, 2
 '''@login_required
 def setdeliveredView(request):
     
@@ -78,6 +83,7 @@ def deleteorderView(request, orderid):
 
     return redirect('/')
 
+#Fix to vulnerability 3
 '''
 @login_required
 def deleteorderView(request, orderid):
