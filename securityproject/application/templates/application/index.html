@@ -22,14 +22,20 @@
                     <li>Status: {{order.status}}</li>
                 </ul>
                 {% if order.status == "Pending" %}
-                    <form action = 'setdelivered/{{order.id}}' method = 'POST'>
+                    <form action = 'setdelivered/' method = 'POST'>
                         {% csrf_token %}
-                        <input type = "submit" value = "Set delivered"/>
+                        <button name = "name" value = {{order.name}} type = "submit">Set delivered</button>
                     </form>
-                {% else %}
-                    <form action = 'deleteorder/' method = 'POST'>
+                    <!--
+                    <form action = 'setdelivered/' method = 'POST'>
                         {% csrf_token %}
-                        <button name = "id" value = {{order.id}} type = "submit">Delete order</button>
+                        <button name = "id" value = {{order.id}} type = "submit">Set delivered</button>
+                    </form>
+                    -->
+                {% else %}
+                    <form action = 'deleteorder/{{order.id}}' method = 'POST'>
+                        {% csrf_token %}
+                        <input type = "submit" value = "Delete order"/>
                     </form>
                 {% endif %}
             {% endfor %}

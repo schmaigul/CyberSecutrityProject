@@ -15,30 +15,49 @@ def sendorderView(request):
         price = request.POST.get('price')
         date = timezone.now()
         status = 'Pending'
-
         customer = User.objects.get(username = request.POST.get('customer'))
-
-        Order.objects.create(name = name, price = price, date_created = date, status = status, customer = customer)
+        try:
+             Order.objects.create(name = name, price = price, date_created = date, status = status, customer = customer)
+        except:
+            pass
 
     return redirect('/')
 
 @login_required
-def setdeliveredView(request, orderid):
+def setdeliveredView(request):
 
+    name = request.POST.get('name')
     connection = sqlite3.connect("db.sqlite3")
     cursor = connection.cursor()
     try:
-        cursor.execute("UPDATE application_order SET status = 'Delivered' WHERE id = %s;" % (orderid))
+        cursor.execute("UPDATE application_order SET status = 'Delivered' WHERE name = '%s';" % (name,))
         connection.commit()
     except:
         pass
      
     return redirect('/')
 
-@login_required
-def deleteorderView(request):
+'''@login_required
+def setdeliveredView(request):
     
-    Order.objects.filter(id = request.POST.get('id')).delete()
+    if request.method == 'POST':
+
+        orderid = request.POST.get('id')
+        order = Order.objects.filter(id = orderid).first()
+        user = request.user
+
+        if order.customer == user:
+
+            order.status = 'Delivered'
+            order.save()
+
+    return redirect('/')'''
+
+
+@login_required
+def deleteorderView(request, orderid):
+    
+    Order.objects.filter(id = orderid).delete()
 
     return redirect('/')
 
