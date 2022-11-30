@@ -8,6 +8,9 @@ from .models import Order
 import sqlite3
 
 
+'''import logging
+logger = logging.getLogger(__name__)'''
+
 @login_required
 def sendorderView(request):
     if request.method == 'POST':
@@ -16,12 +19,25 @@ def sendorderView(request):
         date = timezone.now()
         status = 'Pending'
         customer = User.objects.get(username = request.POST.get('customer'))
-        try:
-             Order.objects.create(name = name, price = price, date_created = date, status = status, customer = customer)
-        except:
-            pass
+        order = Order.objects.create(name = name, price = price, date_created = date, status = status, customer = customer)
+        #logger.info(f"A new order was made with the id {order.id}")
 
     return redirect('/')
+
+'''@login_required
+def sendorderView(request):
+    if request.method == 'POST':
+        name = request.POST.get('order_name')
+        price = request.POST.get('price')
+        date = timezone.now()
+        status = 'Pending'
+        try:
+            customer = User.objects.get(username = request.POST.get('customer'))
+            Order.objects.create(name = name, price = price, date_created = date, status = status, customer = customer)
+        except ValueError():
+            logger.warning("Invalid values inserted")
+
+    return redirect('/')'''
 
 @login_required
 def setdeliveredView(request):
@@ -33,6 +49,7 @@ def setdeliveredView(request):
         cursor.execute("UPDATE application_order SET status = 'Delivered' WHERE name = '%s';" % (name,))
         connection.commit()
     except:
+        #logger.warning('Platform is running at risk')
         pass
      
     return redirect('/')
@@ -47,7 +64,7 @@ def setdeliveredView(request):
         user = request.user
 
         if order.customer == user:
-
+    
             order.status = 'Delivered'
             order.save()
 
@@ -60,6 +77,21 @@ def deleteorderView(request, orderid):
     Order.objects.filter(id = orderid).delete()
 
     return redirect('/')
+
+'''
+@login_required
+def deleteorderView(request, orderid):
+    if request.method == 'POST':
+
+        user = request.user
+        order = Order.objects.filter(id = orderid).first()
+
+        if order.customer == user:
+
+            order.delete()
+
+    return redirect('/')
+'''
 
 # Create your views here.
 @login_required
