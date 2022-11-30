@@ -24,9 +24,9 @@ There are two premade users:
 
 ## Vulnerability 1: SQL injection.
 
-LINK: https://github.com/schmaigul/CyberSecutrityProject/blob/31a5ba5efa58f9d88afe9b8d4bc72f891a3f022a/securityproject/application/views.py#L26
+LINK: https://github.com/schmaigul/CyberSecutrityProject/blob/31a5ba5efa58f9d88afe9b8d4bc72f891a3f022a/securityproject/application/views.py#L27
 
-LINK: https://github.com/schmaigul/CyberSecutrityProject/blob/31a5ba5efa58f9d88afe9b8d4bc72f891a3f022a/securityproject/application/templates/application/index.html#L24
+LINK: https://github.com/schmaigul/CyberSecutrityProject/blob/31a5ba5efa58f9d88afe9b8d4bc72f891a3f022a/securityproject/application/templates/application/index.html#L25
 
 The database query is done by raw sql and finds the orders by the name, not by the primary key as it should. This allows user to name their product name as an SQL injection, setting all the users orders as 'Delivered' when they press 'Set Delivered'-button. The user is able to manipulate the SQL statement to choose all orders in the table, setting order status of all orders as 'Delivered'
 
