@@ -3,11 +3,9 @@
 ## How to run
 
 1. Clone the directory
-2. Make a virtual environment
-3. Install required packages by running: ``pip install -r requirements.txt``
-4. Run ``python manage.py migrate``
-5. Run ``python manage.py makemigrations``
-6. Run the server: ``python manage.py runserver``
+3. Run ``python manage.py migrate``
+4. Run ``python manage.py makemigrations``
+5. Run the server: ``python manage.py runserver``
 
 There are two premade users:
 
