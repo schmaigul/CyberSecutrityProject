@@ -24,7 +24,7 @@ There are two premade users:
 
 ## Vulnerability 1: SQL injection.
 
-LINK: https://github.com/schmaigul/CyberSecutrityProject/blob/31a5ba5efa58f9d88afe9b8d4bc72f891a3f022a/securityproject/application/views.py#L27
+LINK: https://github.com/schmaigul/CyberSecutrityProject/blob/31a5ba5efa58f9d88afe9b8d4bc72f891a3f022a/securityproject/application/views.py#L33
 
 LINK: https://github.com/schmaigul/CyberSecutrityProject/blob/31a5ba5efa58f9d88afe9b8d4bc72f891a3f022a/securityproject/application/templates/application/index.html#L27
 
